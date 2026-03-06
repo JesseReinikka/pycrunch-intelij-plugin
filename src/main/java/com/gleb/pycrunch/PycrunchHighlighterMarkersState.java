@@ -1,6 +1,7 @@
 package com.gleb.pycrunch;
 
 import com.gleb.pycrunch.shared.GlobalKeys;
+import com.intellij.openapi.application.ReadAction;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.colors.CodeInsightColors;
 import com.intellij.openapi.editor.colors.EditorColorsManager;
@@ -109,8 +110,10 @@ public class PycrunchHighlighterMarkersState {
     }
 
     private VirtualFile file_from_document(Project project, Document document) {
-        PsiFile psiFile = PsiDocumentManagerImpl.getInstance(project).getPsiFile(document);
-        return psiFile.getVirtualFile();
+        return ReadAction.compute(() -> {
+            PsiFile psiFile = PsiDocumentManagerImpl.getInstance(project).getPsiFile(document);
+            return psiFile.getVirtualFile();
+        });
     }
 
     private void addHighlighterForLine(int myLine, String status, MarkupModelEx markup, ArrayList<RangeHighlighterEx> all_highlighters_per_current_file, String absolute_path, Project project) {
