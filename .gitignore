@@ -2,6 +2,7 @@ target/
 .idea/
 build/
 .gradle/
+.intellijPlatform/
 *.iml
 .DS_Store
 .vscode/
