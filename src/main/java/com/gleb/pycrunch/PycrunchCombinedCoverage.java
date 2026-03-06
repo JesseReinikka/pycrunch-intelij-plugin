@@ -48,7 +48,7 @@ public class PycrunchCombinedCoverage {
 
 
     public SingleFileCombinedCoverage GetSingleFileCoverage(String filename) {
-        if (SystemUtils.IS_OS_WINDOWS) {
+        if (Boolean.TRUE.equals(SystemUtils.IS_OS_WINDOWS)) {
           filename = filename.replace("/", File.separator);
         }
         return _files.get(filename);
